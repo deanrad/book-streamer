@@ -16,5 +16,9 @@ const render = () => {
 // ------------ Set up our consequences (HOW) ------------
 agent.on("search/start", render);
 
+// Log synchronously with a filter.
+// TODO filter through a reducer.
+agent.filter(/^search/, ({ action }) => console.log(action));
+
 // ------------ Trigger our events (WHAT) ----------
 agent.process({ type: "search/start", payload: { q: "quilting" } });

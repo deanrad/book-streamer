@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends PureComponent {
@@ -20,7 +19,7 @@ class App extends PureComponent {
 
             return (
               <li>
-                <a href={link} target="_blank" rel="noopener">
+                <a href={link} target="_blank" rel="noopener noreferrer">
                   <img height="50" src={thumb} alt={title} />
                   {title} - {authors} - {publisher}
                 </a>
