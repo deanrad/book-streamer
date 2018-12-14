@@ -10,6 +10,7 @@ it('renders without crashing', () => {
 
 describe('Startup', () => {
   it('should process a search/start action', () => {});
+  it('should give the App a means to raise search/change events', () => {});
   it.skip('should subscribe to debounced search changes', () => {});
 });
 describe('Consequences', () => {

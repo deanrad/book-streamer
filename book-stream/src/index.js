@@ -11,8 +11,17 @@ let _state = {
   loading: false,
   results: []
 };
+
+const handleSearchChange = e => {
+  agent.process({
+    type: 'search/change',
+    payload: {
+      q: e.target.value
+    }
+  });
+};
 const render = () => {
-  ReactDOM.render(<App {..._state} />, document.getElementById('root'));
+  ReactDOM.render(<App {..._state} handleSearchChange={handleSearchChange} />, document.getElementById('root'));
 };
 
 // ------------ Set up our consequences (HOW) ------------

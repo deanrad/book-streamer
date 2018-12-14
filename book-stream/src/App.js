@@ -3,11 +3,16 @@ import './App.css';
 
 class App extends PureComponent {
   render() {
-    const { q, loading, results } = this.props;
+    const { q, loading, results, handleSearchChange } = this.props;
     return (
       <div className="App">
         <div>
-          <input id="q" defaultValue={q} style={{ fontSize: '2em' }} />
+          <input
+            id="q"
+            defaultValue={q}
+            style={{ fontSize: '2em' }}
+            onChange={handleSearchChange}
+          />
           {loading && '⏳'}
         </div>
         <ul>
