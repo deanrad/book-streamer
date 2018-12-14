@@ -36,7 +36,7 @@ const dispatch = action => {
   _state = store.getState();
   return _state;
 };
-agent.filter(/^search/, ({ action }) => dispatchc(action));
+agent.filter(/^search/, ({ action }) => dispatch(action));
 
 // ------------ Trigger our events (WHAT) ----------
 agent.process({ type: 'search/start', payload: { q: 'quilting' } });
