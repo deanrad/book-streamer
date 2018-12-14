@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import './index.css';
 import App from './App';
-import { agent, after } from 'antares-protocol';
+import { agent, ajaxStreamingGet } from 'antares-protocol';
+import { map, endWith } from 'rxjs/operators';
 
 let _state = {
   q: 'quilting',
@@ -41,7 +42,30 @@ const dispatch = action => {
 agent.filter(/^search/, ({ action }) => dispatch(action));
 // prettier-ignore
 agent.on('search/start', ({ action }) => {
-    return after(1000, () => ({ type: 'search/complete' }));
+    return ajaxStreamingGet({
+      url: 'https://www.googleapis.com/books/v1/volumes?q=' + action.payload.q,
+      expandKey: 'items'
+    }).pipe(
+      map(volume => {
+        const info = volume.volumeInfo || {};
+        const { title, publisher, canonicalVolumeLink: link } = info;
+        const authors = (info.authors || []).join(', ');
+        const { smallThumbnail: thumbnail } = info.imageLinks || {};
+        return {
+          type: 'search/result',
+          payload: {
+            title,
+            authors,
+            link,
+            publisher,
+            thumbnail
+          }
+        };
+      }),
+      endWith({
+        type: 'search/complete'
+      })
+    );
   },
   { processResults: true }
 );
