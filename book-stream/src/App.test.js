@@ -8,10 +8,16 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
+/* These are an outline of tests that would best work as integration tests
+   but are placed here just to track the growth of features.
+
+   A framework based on Observables poses interesting challenges and opportunities
+   in the realm of testing.
+*/
 describe('Startup', () => {
   it('should process a search/start action', () => {});
   it('should give the App a means to raise search/change events', () => {});
-  it.skip('should subscribe to debounced search changes', () => {});
+  it('should subscribe to debounced search changes', () => {});
 });
 describe('Consequences', () => {
   describe('search/*', () => {

@@ -21,8 +21,8 @@ class App extends PureComponent {
 
             return (
               <li key={id}>
+                <img height="50" src={thumbnail} alt={title} />
                 <a href={link} target="_blank" rel="noopener noreferrer">
-                  <img height="50" src={thumbnail} alt={title} />
                   {title} - {authors} - {publisher}
                 </a>
               </li>

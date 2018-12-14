@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 import './index.css';
 import App from './App';
 import { agent, after, ajaxStreamingGet } from 'antares-protocol';
-import { map, endWith, concatMap } from 'rxjs/operators';
+import { map, filter, endWith, concatMap, debounceTime } from 'rxjs/operators';
 
 let _state = {
   q: 'quilting',
@@ -78,7 +78,7 @@ agent.on('search/start', ({ action }) => {
           }
         };
       }),
-      concatMap(action => after(300, () => action)),
+      concatMap(action => after(500, () => action)),
       endWith({
         type: 'search/complete'
       })
@@ -88,3 +88,14 @@ agent.on('search/start', ({ action }) => {
 );
 // ------------ Trigger our events (WHAT) ----------
 agent.process({ type: 'search/start', payload: { q: 'quilting' } });
+
+agent.subscribe(
+  agent.allOfType('search/change').pipe(
+    filter(action => (action.payload.q || '').length > 2),
+    debounceTime(700),
+    map(action => ({
+      type: 'search/start',
+      payload: { q: action.payload.q }
+    }))
+  )
+);
