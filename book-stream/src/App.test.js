@@ -31,6 +31,8 @@ describe('Consequences', () => {
     it.skip('should cancel a previous search in progress', () => {
       /* this partially works, but because of the debounced search, some edge cases may show through */
     });
+    it('should place the search in the document hash', () => {});
+    it('should select the search text for easy replacement', () => {});
   });
   describe('search/result', () => {
     it('should add its payload to props.results', () => {});

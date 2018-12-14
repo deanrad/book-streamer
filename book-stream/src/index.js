@@ -89,6 +89,10 @@ agent.on('search/start', ({ action }) => {
     processResults: true
   }
 );
+agent.on('search/start', ({ action }) => {
+  document.getElementById('q').select();
+  document.location.hash = action.payload.q;
+});
 // ------------ Trigger our events (WHAT) ----------
 agent.process({ type: 'search/start', payload: { q: 'quilting' } });
 
