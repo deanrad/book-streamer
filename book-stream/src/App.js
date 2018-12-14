@@ -1,5 +1,5 @@
-import React, { PureComponent } from "react";
-import "./App.css";
+import React, { PureComponent } from 'react';
+import './App.css';
 
 class App extends PureComponent {
   render() {
@@ -7,15 +7,15 @@ class App extends PureComponent {
     return (
       <div className="App">
         <div>
-          <input id="q" defaultValue={q} style={{ fontSize: "2em" }} />
-          {loading && "⏳"}
+          <input id="q" defaultValue={q} style={{ fontSize: '2em' }} />
+          {loading && '⏳'}
         </div>
         <ul>
           {(results || []).map(volume => {
             const info = volume.volumeInfo || {};
             const { title, publisher, canonicalVolumeLink: link } = info;
             const thumb = (info.imageLinks || {}).smallThumbnail;
-            const authors = (info.authors || []).join(", ");
+            const authors = (info.authors || []).join(', ');
 
             return (
               <li>
