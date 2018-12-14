@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import './index.css';
 import App from './App';
-import { agent, ajaxStreamingGet } from 'antares-protocol';
-import { map, endWith } from 'rxjs/operators';
+import { agent, after, ajaxStreamingGet } from 'antares-protocol';
+import { map, endWith, concatMap } from 'rxjs/operators';
 
 let _state = {
   q: 'quilting',
@@ -21,7 +21,10 @@ const handleSearchChange = e => {
   });
 };
 const render = () => {
-  ReactDOM.render(<App {..._state} handleSearchChange={handleSearchChange} />, document.getElementById('root'));
+  ReactDOM.render(
+    <App {..._state} handleSearchChange={handleSearchChange} />,
+    document.getElementById('root')
+  );
 };
 
 // ------------ Set up our consequences (HOW) ------------
@@ -75,6 +78,7 @@ agent.on('search/start', ({ action }) => {
           }
         };
       }),
+      concatMap(action => after(300, () => action)),
       endWith({
         type: 'search/complete'
       })
