@@ -1196,6 +1196,13 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+antares-protocol@^2.11.2:
+  version "2.11.2"
+  resolved "https://registry.yarnpkg.com/antares-protocol/-/antares-protocol-2.11.2.tgz#c5df202014c91c01e49c8a73e0e4cdcbc5d38b34"
+  integrity sha512-PnUj89UnNhmS0vvZNfL0tcIkDf9msyl31RsYgGeHF5o1Rj+VJar2+nszDuQ8lvWqxhZIvuuq/mVM01N2b8/RNQ==
+  dependencies:
+    fast-json-patch "^2.0.6"
+
 anymatch@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-2.0.0.tgz#bcb24b4f37934d9aa7ac17b4adaf89e7c76ef2eb"
@@ -3669,6 +3676,13 @@ fast-glob@^2.0.2:
     is-glob "^4.0.0"
     merge2 "^1.2.3"
     micromatch "^3.1.10"
+
+fast-json-patch@^2.0.6:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/fast-json-patch/-/fast-json-patch-2.0.7.tgz#55864b08b1e50381d2f37fd472bb2e18fe54a733"
+  integrity sha512-DQeoEyPYxdTtfmB3yDlxkLyKTdbJ6ABfFGcMynDqjvGhPYLto/pZyb/dG2Nyd/n9CArjEWN9ZST++AFmgzgbGw==
+  dependencies:
+    deep-equal "^1.0.1"
 
 fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
