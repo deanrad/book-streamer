@@ -23,6 +23,8 @@ const reduce = (state = _state, { type, payload }) => {
   switch (type) {
     case 'search/start':
       return { ...state, q: payload.q, loading: true, results: [] };
+    case 'search/complete':
+      return { ...state, loading: false };
     default:
       return state;
   }

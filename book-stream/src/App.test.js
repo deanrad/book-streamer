@@ -17,4 +17,10 @@ describe('Consequences', () => {
     it('should cause re-rendering', () => {});
     it('should filter through a reducer', () => {});
   });
+  describe('search/start', () => {
+    it('should merge the props with {q, loading: true, results: []}', () => {});
+  });
+  describe('search/complete', () => {
+    it('should merge the props with {loading: false}', () => {});
+  });
 });
