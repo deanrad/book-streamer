@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import './index.css';
 import App from './App';
-import { agent } from 'antares-protocol';
+import { agent, after } from 'antares-protocol';
 
 let _state = {
   q: 'quilting',
@@ -15,7 +15,7 @@ const render = () => {
 };
 
 // ------------ Set up our consequences (HOW) ------------
-agent.on('search/start', render);
+agent.on(/^search/, render);
 
 // Log synchronously with a filter.
 // Redux-lite-  manages our reduction (aggregation) of actions seen
@@ -39,6 +39,11 @@ const dispatch = action => {
   return _state;
 };
 agent.filter(/^search/, ({ action }) => dispatch(action));
-
+// prettier-ignore
+agent.on('search/start', ({ action }) => {
+    return after(1000, () => ({ type: 'search/complete' }));
+  },
+  { processResults: true }
+);
 // ------------ Trigger our events (WHAT) ----------
 agent.process({ type: 'search/start', payload: { q: 'quilting' } });
