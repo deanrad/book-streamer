@@ -19,6 +19,11 @@ describe('Consequences', () => {
   });
   describe('search/start', () => {
     it('should merge the props with {q, loading: true, results: []}', () => {});
+    it('should call the API, processing search/result for each item under "items"', () => {});
+    it('should process search/complete', () => {});
+  });
+  describe('search/result', () => {
+    it('should add its payload to props.results', () => {});
   });
   describe('search/complete', () => {
     it('should merge the props with {loading: false}', () => {});

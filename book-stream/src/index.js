@@ -24,6 +24,8 @@ const reduce = (state = _state, { type, payload }) => {
   switch (type) {
     case 'search/start':
       return { ...state, q: payload.q, loading: true, results: [] };
+    case 'search/result':
+      return { ...state, results: [...state.results, payload] };
     case 'search/complete':
       return { ...state, loading: false };
     default:
@@ -47,6 +49,7 @@ agent.on('search/start', ({ action }) => {
       expandKey: 'items'
     }).pipe(
       map(volume => {
+        const id = volume.id
         const info = volume.volumeInfo || {};
         const { title, publisher, canonicalVolumeLink: link } = info;
         const authors = (info.authors || []).join(', ');
@@ -54,6 +57,7 @@ agent.on('search/start', ({ action }) => {
         return {
           type: 'search/result',
           payload: {
+            id,
             title,
             authors,
             link,

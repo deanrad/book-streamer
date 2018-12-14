@@ -12,15 +12,12 @@ class App extends PureComponent {
         </div>
         <ul>
           {(results || []).map(volume => {
-            const info = volume.volumeInfo || {};
-            const { title, publisher, canonicalVolumeLink: link } = info;
-            const thumb = (info.imageLinks || {}).smallThumbnail;
-            const authors = (info.authors || []).join(', ');
+            const { id, link, thumbnail, title, authors, publisher } = volume;
 
             return (
-              <li>
+              <li key={id}>
                 <a href={link} target="_blank" rel="noopener noreferrer">
-                  <img height="50" src={thumb} alt={title} />
+                  <img height="50" src={thumbnail} alt={title} />
                   {title} - {authors} - {publisher}
                 </a>
               </li>
