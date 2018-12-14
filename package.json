@@ -1,0 +1,15 @@
+{
+  "name": "8thlight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd book-stream; yarn start",
+    "build": "cd book-stream; yarn build | grep build/static > ../build.stats",
+    "deploy": "git push heroku master"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
