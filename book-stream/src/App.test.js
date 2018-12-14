@@ -12,7 +12,7 @@ it('renders without crashing', () => {
    but are placed here just to track the growth of features.
 
    A framework based on Observables poses interesting challenges and opportunities
-   in the realm of testing.
+   in the realm of testing!
 */
 describe('Startup', () => {
   it('should process a search/start action', () => {});
@@ -28,6 +28,9 @@ describe('Consequences', () => {
     it('should merge the props with {q, loading: true, results: []}', () => {});
     it('should call the API, processing search/result for each item under "items"', () => {});
     it('should process search/complete', () => {});
+    it.skip('should cancel a previous search in progress', () => {
+      /* this partially works, but because of the debounced search, some edge cases may show through */
+    });
   });
   describe('search/result', () => {
     it('should add its payload to props.results', () => {});

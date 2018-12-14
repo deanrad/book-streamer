@@ -84,7 +84,10 @@ agent.on('search/start', ({ action }) => {
       })
     );
   },
-  { processResults: true }
+  {
+    concurrency: 'cutoff',
+    processResults: true
+  }
 );
 // ------------ Trigger our events (WHAT) ----------
 agent.process({ type: 'search/start', payload: { q: 'quilting' } });
