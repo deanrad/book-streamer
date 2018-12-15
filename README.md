@@ -1,5 +1,7 @@
 # Google Book Search Single-Page Application (Antares-style)
 
+Want to watch an [Intro Video 🎥](https://www.youtube.com/watch?v=QQ77KC7czFA&feature=youtu.be)?
+
 These days, browser-based and NodeJS applications are made up of events:
 The user types a thing, an API we call gets back to us..
 
