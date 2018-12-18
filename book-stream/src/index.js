@@ -6,6 +6,9 @@ import App from './App';
 import { agent, after, ajaxStreamingGet } from 'antares-protocol';
 import { map, filter, endWith, concatMap, debounceTime } from 'rxjs/operators';
 
+import oboe from 'oboe';
+window.oboe = oboe;
+
 let _state = {
   q: 'quilting',
   loading: false,
@@ -85,7 +88,7 @@ agent.on('search/start', ({ action }) => {
     );
   },
   {
-    concurrency: 'cutoff',
+    concurrency: 'serial',
     processResults: true
   }
 );

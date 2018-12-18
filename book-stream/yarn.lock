@@ -1196,10 +1196,10 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antares-protocol@^2.11.2:
-  version "2.11.2"
-  resolved "https://registry.yarnpkg.com/antares-protocol/-/antares-protocol-2.11.2.tgz#c5df202014c91c01e49c8a73e0e4cdcbc5d38b34"
-  integrity sha512-PnUj89UnNhmS0vvZNfL0tcIkDf9msyl31RsYgGeHF5o1Rj+VJar2+nszDuQ8lvWqxhZIvuuq/mVM01N2b8/RNQ==
+antares-protocol@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/antares-protocol/-/antares-protocol-2.13.0.tgz#9145d02c3275b6c10219148110703d04a6ab102c"
+  integrity sha512-dMXCSZSgb/7MInBJffAc567LJOI9Jz0kHs22aIzMp9Pu4jcbk0BJGJX3ciw7ev6C6Bjyi+Y0usILS3gnKsHYug==
   dependencies:
     fast-json-patch "^2.0.6"
 
@@ -4474,6 +4474,11 @@ http-errors@1.6.3, http-errors@~1.6.2, http-errors@~1.6.3:
     setprototypeof "1.1.0"
     statuses ">= 1.4.0 < 2"
 
+http-https@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/http-https/-/http-https-1.0.0.tgz#2f908dd5f1db4068c058cd6e6d4ce392c913389b"
+  integrity sha1-L5CN1fHbQGjAWM1ubUzjkskTOJs=
+
 http-parser-js@>=0.4.0:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/http-parser-js/-/http-parser-js-0.4.13.tgz#3bd6d6fde6e3172c9334c3b33b6c193d80fe1137"
@@ -6521,6 +6526,13 @@ object.values@^1.0.4:
     es-abstract "^1.6.1"
     function-bind "^1.1.0"
     has "^1.0.1"
+
+oboe@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/oboe/-/oboe-2.1.4.tgz#20c88cdb0c15371bb04119257d4fdd34b0aa49f6"
+  integrity sha1-IMiM2wwVNxuwQRklfU/dNLCqSfY=
+  dependencies:
+    http-https "^1.0.0"
 
 obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.2"
