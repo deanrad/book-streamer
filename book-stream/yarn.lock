@@ -902,6 +902,11 @@
     "@svgr/core" "^2.4.1"
     loader-utils "^1.1.0"
 
+"@types/jest@^23.3.2":
+  version "23.3.10"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
+  integrity sha512-DC8xTuW/6TYgvEg3HEXS7cu9OijFqprVDXXiOcdOKZCU/5PJNLZU37VVvmZHdtMiGOa8wAA/We+JzbdxFzQTRQ==
+
 "@types/tapable@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.2.tgz#e13182e1b69871a422d7863e11a4a6f5b814a4bd"
@@ -1196,11 +1201,12 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antares-protocol@^2.13.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/antares-protocol/-/antares-protocol-2.13.0.tgz#9145d02c3275b6c10219148110703d04a6ab102c"
-  integrity sha512-dMXCSZSgb/7MInBJffAc567LJOI9Jz0kHs22aIzMp9Pu4jcbk0BJGJX3ciw7ev6C6Bjyi+Y0usILS3gnKsHYug==
+antares-protocol@2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/antares-protocol/-/antares-protocol-2.9.1.tgz#c92f3086be6938ca549f77a93f9c4198ca9f3384"
+  integrity sha512-kS5AEK690g8afCqnyu3kkXDQDsPuanH0kyLyh/OSXonxGURNVRefmBSm53HQwlnEBQQCV3oFki5+tSEGp/33dA==
   dependencies:
+    "@types/jest" "^23.3.2"
     fast-json-patch "^2.0.6"
 
 anymatch@^2.0.0:
