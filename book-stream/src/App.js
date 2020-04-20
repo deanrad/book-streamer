@@ -10,12 +10,11 @@ class App extends PureComponent {
           <input
             id="q"
             defaultValue={q}
-            style={{ fontSize: '2em' }}
             onChange={handleSearchChange}
           />
           {loading && '⏳'}
         </div>
-        <ul>
+        <ul id="results">
           {(results || []).map(volume => {
             const { id, link, thumbnail, title, authors, publisher } = volume;
 

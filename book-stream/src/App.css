@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: absolute;
 }
 
 li {
@@ -14,4 +15,41 @@ a {
 
 .App-link {
   color: #61dafb;
+}
+
+#q {
+  display: block;
+  font-size: 2em;
+  width: 80vw;
+}
+
+#results {
+  max-height: 400px;
+  overflow: scroll;
+  border: 1px solid gray;
+  position: relative;
+  top: -10px;
+  left: 2px;
+}
+
+#results::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+#results::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+#results::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(148, 148, 148, 0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+#results::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 0, 0, 0.4);
 }
