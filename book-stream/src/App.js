@@ -7,15 +7,10 @@ class App extends PureComponent {
     return (
       <div className="App">
         <div>
-          <input
-            id="q"
-            defaultValue={q}
-            style={{ fontSize: '2em' }}
-            onChange={handleSearchChange}
-          />
-          {loading && '⏳'}
+          <input id="q" defaultValue={q} onChange={handleSearchChange} />
+          <span id="spinner">{loading && '⏳'}</span>
         </div>
-        <ul>
+        <ul id="results">
           {(results || []).map(volume => {
             const { id, link, thumbnail, title, authors, publisher } = volume;
 
