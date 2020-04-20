@@ -2,29 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import './index.css';
-import App from './App';
+import { App } from './App';
 import { trigger, listen, filter, after, query } from 'polyrhythm';
-import {
-  map,
-  tap,
-  filter as _filter,
-  endWith,
-  mergeMap,
-  first
-} from 'rxjs/operators';
+import { map, tap, endWith, mergeMap, first, catchError } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
-import { from, Observable } from 'rxjs';
+import { of, from, Observable } from 'rxjs';
 
 let _state = {
   q: 'polyrhythm',
-  loading: false,
+  spinner: null,
   results: []
 };
 
 // const url = 'https://www.googleapis.com/books/v1/volumes?q=';
 const url = 'https://untitled-bk05rn8eijyx.runkit.sh/?q=';
-// const getBooks = nonCancelableGet;
-const getBooks = nonStreamingGet;
+const getBooks = nonCancelableGet;
+// const getBooks = nonStreamingGet;
 // const getBooks = streamingGet;
 
 const handleSearchChange = e => {
@@ -44,13 +37,15 @@ const render = () => {
 const reduce = (state = _state, { type, payload }) => {
   switch (type) {
     case 'search/start':
-      return { ...state, q: payload.q, loading: true };
+      return { ...state, q: payload.q, spinner: '⏳' };
     case 'search/clear':
-      return { ...state, results: [] };
+      return { ...state, spinner: null, results: [] };
     case 'search/result':
       return { ...state, results: [...state.results, payload] };
+    case 'search/error':
+      return { ...state, spinner: '💥' };
     case 'search/complete':
-      return { ...state, loading: false };
+      return { ...state, spinner: null };
     default:
       return state;
   }
@@ -94,6 +89,10 @@ function getAjaxBooks({ payload }) {
       payload: volumeToPayload(volume)
     })),
     endWith({ type: 'search/complete' }),
+    catchError((err, failed) => {
+      return of({ type: 'search/error' });
+      //return failed
+    }),
     tap(({ type, payload }) => trigger(type, payload))
   );
 }
@@ -119,12 +118,16 @@ function streamingGet(q) {
 // A Promise-based execution, returned
 function nonCancelableGet(q) {
   return new Observable(async notify => {
-    let response = await fetch(url + q);
-    let items = (await response.json()).items;
-    for (let item of items) {
-      notify.next(item);
+    try {
+      let response = await fetch(url + q);
+      let items = (await response.json()).items;
+      for (let item of items) {
+        notify.next(item);
+      }
+      notify.complete();
+    } catch (ex) {
+      notify.error(ex);
     }
-    notify.complete();
   });
 }
 
