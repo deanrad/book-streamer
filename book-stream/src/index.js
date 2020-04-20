@@ -3,8 +3,15 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import './index.css';
 import App from './App';
-import { trigger, listen, filter, after } from 'polyrhythm';
-import { map, tap, filter as _filter, endWith, mergeMap } from 'rxjs/operators';
+import { trigger, listen, filter, after, query } from 'polyrhythm';
+import {
+  map,
+  tap,
+  filter as _filter,
+  endWith,
+  mergeMap,
+  first
+} from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { from, Observable } from 'rxjs';
 
@@ -37,7 +44,9 @@ const render = () => {
 const reduce = (state = _state, { type, payload }) => {
   switch (type) {
     case 'search/start':
-      return { ...state, q: payload.q, loading: true, results: [] };
+      return { ...state, q: payload.q, loading: true };
+    case 'search/clear':
+      return { ...state, results: [] };
     case 'search/result':
       return { ...state, results: [...state.results, payload] };
     case 'search/complete':
@@ -56,7 +65,6 @@ const dispatch = event => {
   store.dispatch(event);
 };
 filter(/^search/, dispatch);
-listen('search/start', updateAddressBar);
 
 listen(
   'search/change',
@@ -66,14 +74,10 @@ listen(
   { mode: 'replace' }
 );
 
+listen('search/start', updateAddressBar);
+listen('search/start', clearOnFirstResult, { mode: 'replace' });
 // prettier-ignore
-listen('search/start', ({ payload: { q }}) => {
-  return getBooks(q).pipe(
-    map(volume => ({ type: 'search/result', payload: volumeToPayload(volume)})),
-    endWith({ type: 'search/complete' }),
-    tap(({ type, payload }) => trigger(type, payload))
-  )
-}, { mode: 'replace'});
+listen('search/start', getAjaxBooks, { mode: 'replace'});
 
 listen(/^search/, render);
 
@@ -81,8 +85,17 @@ listen(/^search/, render);
 trigger('search/start', { q: 'polyrhythm' });
 
 // ------------ Implementation Details --------------
-function updateAddressBar(event) {
-  document.location.hash = event.payload.q;
+
+function getAjaxBooks({ payload }) {
+  const { q } = payload;
+  return getBooks(q).pipe(
+    map(volume => ({
+      type: 'search/result',
+      payload: volumeToPayload(volume)
+    })),
+    endWith({ type: 'search/complete' }),
+    tap(({ type, payload }) => trigger(type, payload))
+  );
 }
 
 function nonStreamingGet(q) {
@@ -113,6 +126,17 @@ function nonCancelableGet(q) {
     }
     notify.complete();
   });
+}
+
+function updateAddressBar(event) {
+  document.location.hash = event.payload.q;
+}
+
+function clearOnFirstResult() {
+  return query('search/result').pipe(
+    first(),
+    tap(() => trigger('search/clear'))
+  );
 }
 
 function volumeToPayload(volume) {
