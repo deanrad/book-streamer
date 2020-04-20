@@ -8,17 +8,18 @@ import { map, tap, endWith, mergeMap, first, catchError } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { of, from, Observable } from 'rxjs';
 
+const defaultQuery = document.location.hash.substr(1) || 'polyrhythm';
 let _state = {
-  q: 'polyrhythm',
+  q: defaultQuery,
   spinner: null,
   results: []
 };
 
 // const url = 'https://www.googleapis.com/books/v1/volumes?q=';
 const url = 'https://untitled-bk05rn8eijyx.runkit.sh/?q=';
-const getBooks = nonCancelableGet;
+// const getBooks = nonCancelableGet;
 // const getBooks = nonStreamingGet;
-// const getBooks = streamingGet;
+const getBooks = streamingGet;
 
 const handleSearchChange = e => {
   trigger('search/change', {
@@ -77,7 +78,7 @@ listen('search/start', getAjaxBooks, { mode: 'replace'});
 listen(/^search/, render);
 
 // ------------ START OFF WITH A SEARCH --------------
-trigger('search/start', { q: 'polyrhythm' });
+trigger('search/start', { q: defaultQuery });
 
 // ------------ Implementation Details --------------
 
@@ -89,7 +90,7 @@ function getAjaxBooks({ payload }) {
       payload: volumeToPayload(volume)
     })),
     endWith({ type: 'search/complete' }),
-    catchError((err, failed) => {
+    catchError(() => {
       return of({ type: 'search/error' });
       //return failed
     }),
